@@ -3,18 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-boost": "^0.1.17",
     "electron-is-dev": "^1.0.1",
+    "emotion": "^9.2.12",
+    "graphql": "^14.0.2",
     "react": "^16.6.0",
+    "react-apollo": "^2.2.4",
     "react-dom": "^16.6.0",
+    "react-emotion": "^9.2.12",
     "react-scripts": "2.0.5"
   },
   "main": "public/electron.js",
   "scripts": {
-    "start": "react-scripts start",
+    "electron-dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"BROWSER=none yarn electron-dev\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
