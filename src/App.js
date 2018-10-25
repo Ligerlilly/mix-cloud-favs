@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import Aside from './components/aside_container'
 import Contents from './components/contents_container'
 import styled from 'react-emotion'
