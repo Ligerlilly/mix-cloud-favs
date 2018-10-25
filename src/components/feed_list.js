@@ -6,8 +6,12 @@ import { Query } from "react-apollo";
 
 const GET_FEED = gql`
     query Feed($username: String!){
-        feed(username: $username) {
-            url
+        cloudCasts {
+            embedUrl
+            title
+            creator(where: {username: $username}) {
+              username
+            }
         }
     }
 `;
@@ -23,8 +27,14 @@ const FeedList = ({ username }) => (
             if (loading) return "Loading...";
             if (error) return `Error!: ${error}`;
 
-            return data.feed.map(({ url }, i) => {
-                return (<ListItem key={`${url}${i}`}>{url}</ListItem>)
+            return data.cloudCasts.map(({ embedUrl, title }, i) => {
+                return (
+                    <ListItem key={`${title}${i}`}>
+                        <h3>{title}</h3>
+                        <span>{createEmbed(embedUrl)}</span>
+                    </ListItem>
+                )
+
             })
         }}
     </Query>
@@ -39,3 +49,5 @@ const Feed = ({ username }) => {
 }
 
 export default Feed;
+
+const createEmbed = (embedUrl) => <div dangerouslySetInnerHTML={{ __html: embedUrl }}></div>
