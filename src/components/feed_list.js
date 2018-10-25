@@ -34,7 +34,6 @@ const FeedList = ({ username }) => (
                         <span>{createEmbed(embedUrl)}</span>
                     </ListItem>
                 )
-
             })
         }}
     </Query>

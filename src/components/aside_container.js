@@ -6,7 +6,6 @@ const AsideContainer = styled('aside')`
   display: flex;
   margin-top: 100px;
   height: 100vh;
-  width: 33%;
 `
 
 const Aside = ({ setDj }) => {

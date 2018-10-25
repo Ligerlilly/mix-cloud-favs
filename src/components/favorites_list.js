@@ -32,7 +32,7 @@ export const ListItem = styled("li")`
   font-size: 12px;
   font-weight: 200;
   display: block;
-  padding: 8px 0 8px 30px;
+  padding: 8px 30px;
   background-color: rgba(255,255,255,0.3);
   border: 2px solid #76678A;
   margin-bottom: 15px;
