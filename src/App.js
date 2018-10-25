@@ -1,28 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import Aside from './components/aside_container'
+import Contents from './components/contents_container'
+import styled from 'react-emotion'
+import { ApolloProvider } from 'react-apollo'
+import client from './client/client'
+import './styles.css'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const Container = styled('div')`
+  display: flex;
+  width: 100%;
+`
+
+class App extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			selectedDj: '',
+		}
+
+		this.setDj = this.setDj.bind(this)
+	}
+
+	setDj(selectedDj) {
+		this.setState({
+			selectedDj,
+		})
+	}
+
+	render() {
+		return (
+			<ApolloProvider client={client}>
+				<Container>
+					<Aside setDj={this.setDj} />
+					<Contents selectedDj={this.state.selectedDj} />
+				</Container>
+			</ApolloProvider>
+		)
+	}
 }
 
-export default App;
+export default App
