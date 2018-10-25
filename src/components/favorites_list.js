@@ -5,10 +5,11 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 const GET_DJS = gql`
-  {
-    djs {
-      username
-      display_name
+  query {
+    dJs {
+        id
+        username
+        display_name
     }
   }
 `;
@@ -51,10 +52,9 @@ const DjList = ({ djs, setDj }) => {
 
 const FavoritesList = ({ setDj }) => (
     <Query query={GET_DJS}>
-        {({ loading, error, data: { djs } }) => {
+        {({ loading, error, data: { dJs = [] } }) => {
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
-
             return (
                 <List>
                     <h2 className="list-title">
@@ -62,7 +62,7 @@ const FavoritesList = ({ setDj }) => (
                     </h2>
                     <Divider />
                     <DjList
-                        djs={djs}
+                        djs={dJs}
                         setDj={setDj}
                     />
                 </List>
