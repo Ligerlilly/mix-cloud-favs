@@ -29,7 +29,7 @@ const List = styled("ul")`
     display: grid;
     grid-template-columns: 1fr auto;
 
-    h3 {
+    h2 {
         grid-column-start: 1;
         grid-row-start: 1;
         margin: 0;
@@ -42,6 +42,12 @@ const List = styled("ul")`
     .artist-field {
         grid-row-start: 2;
         grid-colum-start: 1;
+    }
+
+    form {
+        margin-top: 10px;
+        grid-column-start: 1;
+        grid-column-end: 3;
     }
   }
 `
@@ -95,9 +101,9 @@ class FavoritesList extends React.Component {
                     return (
                         <List>
                             <div className="list-title">
-                                <h3>Djs</h3>
+                                <h2>Djs</h2>
                                 <AddCircle onClick={this.toggleShowMakeArtist} className="circle-icon"/>
-                                { isMakeArtist && <AddArtistField className="artist-field"/> }
+                                { isMakeArtist && <AddArtistField className="artist-field" toggleShowMakeArtist={this.toggleShowMakeArtist}/> }
                             </div>
                             <Divider />
                             <DjList djs={dJs} setDj={setDj} />
