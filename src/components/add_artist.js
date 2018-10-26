@@ -23,7 +23,7 @@ const SAVE_DJ = gql`
     }
 `
 
-const AddArtistField = () => {
+const AddArtistField = (props) => {
     return (
         <Mutation
             mutation={SAVE_DJ}
@@ -43,9 +43,14 @@ const AddArtistField = () => {
                                     display_name: ""
                                 },
                             })
+                            props.toggleShowMakeArtist()
                         }}
                     >
-                        <Input autoFocus={true} placeholder="Enter username" />
+                        <Input
+                            autoFocus={true}
+                            placeholder="Enter username"
+                            fullWidth={true}
+                        />
                     </form>
                 )
             }}

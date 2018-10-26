@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "react-emotion"
-import Divider from "./divider"
+import Divider from '@material-ui/core/Divider';
 import Feed from "./feed_list"
 import classNames from "classnames"
 import { withStyles } from "@material-ui/core/styles"
@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles"
 const ContentsContainer = styled("section")`
   height: 100vh;
   width: 66%;
-  margin-top: 100px;
+  margin-top: 73px;
   padding: 0px 10px;
 
   h2 {
