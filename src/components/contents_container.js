@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "react-emotion"
-import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider"
 import Feed from "./feed_list"
 import classNames from "classnames"
 import { withStyles } from "@material-ui/core/styles"
@@ -18,14 +18,14 @@ const ContentsContainer = styled("section")`
   }
 `
 
-const Contents = ({ selectedDj, isOpen, classes }) => {
+const Contents = ({ selectedDj, selectedDisplayName, isOpen, classes }) => {
     return (
         <ContentsContainer
             className={classNames(classes.content, {
                 [classes.contentShift]: isOpen,
             })}
         >
-            <h2>{selectedDj}</h2>
+            <h2>{selectedDisplayName}</h2>
             <Divider />
             {selectedDj && <Feed username={selectedDj} />}
         </ContentsContainer>

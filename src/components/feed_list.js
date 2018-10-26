@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "react-emotion";
 import { ListItem } from './favorites_list'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
@@ -21,7 +22,7 @@ const FeedContainer = styled('ul')`
 const FeedList = ({ username }) => (
     <Query query={GET_FEED} variables={{ username }}>
         {({ loading, error, data }) => {
-            if (loading) return "Loading...";
+            if (loading) return <CircularProgress />;
             if (error) return `Error!: ${error}`;
 
             return data.cloudCasts.map(({ embedUrl, title }, i) => {

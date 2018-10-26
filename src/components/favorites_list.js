@@ -3,6 +3,7 @@ import styled from "react-emotion"
 import Divider from '@material-ui/core/Divider';
 import AddArtistField from "./add_artist"
 import AddCircle from "@material-ui/icons/AddCircle"
+import CircularProgress from '@material-ui/core/CircularProgress';
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
 
@@ -37,6 +38,7 @@ const List = styled("ul")`
     .circle-icon {
         grid-column-start: 2;
         grid-row-start: 1;
+        align-self: center;
     }
 
     .artist-field {
@@ -54,12 +56,13 @@ const List = styled("ul")`
 
 export const ListItem = styled("li")`
   color: #000000;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 200;
   display: block;
   padding: 8px 30px;
-  background-color: rgba(255,255,255,0.3);
-  border: 2px solid #76678A;
+  background-color: rgba(255,255,255,0.9);
+  border: 3px solid #083F5C;
+  border-radius: 3px;
   margin-bottom: 15px;
   margin-top: 15px;
   cursor: pointer;
@@ -67,7 +70,7 @@ export const ListItem = styled("li")`
 
 const DjList = ({ djs, setDj }) => {
     return djs.map(({ display_name, username }) => (
-        <ListItem onClick={setDj.bind(setDj, username)}>
+        <ListItem onClick={setDj.bind(setDj, username, display_name)}>
             {display_name}
         </ListItem>
     ))
@@ -96,7 +99,7 @@ class FavoritesList extends React.Component {
         return (
             <Query query={GET_DJS}>
                 {({ loading, error, data: { dJs = [] } }) => {
-                    if (loading) return "Loading..."
+                    if (loading) return <CircularProgress />
                     if (error) return `Error! ${error.message}`
                     return (
                         <List>
