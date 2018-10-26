@@ -28,7 +28,7 @@ const FeedList = ({ username }) => (
             return data.cloudCasts.map(({ embedUrl, title }, i) => {
                 return (
                     <ListItem key={`${title}${i}`}>
-                        <h3>{title}</h3>
+                        <h2>{title}</h2>
                         <span>{createEmbed(embedUrl)}</span>
                     </ListItem>
                 )
@@ -47,4 +47,8 @@ const Feed = ({ username }) => {
 
 export default Feed;
 
-const createEmbed = (embedUrl) => <div dangerouslySetInnerHTML={{ __html: embedUrl }}></div>
+const createEmbed = (embedUrl) => <StyledEmbed dangerouslySetInnerHTML={{ __html: embedUrl }}></StyledEmbed>
+
+const StyledEmbed = styled("div")`
+    margin-bottom: 5px;
+`

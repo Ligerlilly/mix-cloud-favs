@@ -1,9 +1,9 @@
 import * as React from "react"
 import styled from "react-emotion"
-import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider"
 import AddArtistField from "./add_artist"
 import AddCircle from "@material-ui/icons/AddCircle"
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
 
@@ -59,13 +59,14 @@ export const ListItem = styled("li")`
   font-size: 14px;
   font-weight: 200;
   display: block;
-  padding: 8px 30px;
+  padding: 8px 15px;
   background-color: rgba(255,255,255,0.9);
   border: 3px solid #083F5C;
   border-radius: 3px;
   margin-bottom: 15px;
   margin-top: 15px;
   cursor: pointer;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `
 
 const DjList = ({ djs, setDj }) => {
@@ -105,8 +106,18 @@ class FavoritesList extends React.Component {
                         <List>
                             <div className="list-title">
                                 <h2>Djs</h2>
-                                <AddCircle onClick={this.toggleShowMakeArtist} className="circle-icon"/>
-                                { isMakeArtist && <AddArtistField className="artist-field" toggleShowMakeArtist={this.toggleShowMakeArtist}/> }
+                                <AddCircle
+                                    onClick={this.toggleShowMakeArtist}
+                                    className="circle-icon"
+                                />
+                                {isMakeArtist && (
+                                    <AddArtistField
+                                        className="artist-field"
+                                        toggleShowMakeArtist={
+                                            this.toggleShowMakeArtist
+                                        }
+                                    />
+                                )}
                             </div>
                             <Divider />
                             <DjList djs={dJs} setDj={setDj} />
