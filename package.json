@@ -24,6 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "dist": "electron-builder",
     "start": "concurrently \"BROWSER=none yarn electron-dev\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
