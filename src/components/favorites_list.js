@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "react-emotion";
 import Divider from "./divider";
+import AddArtistField from "./add_artist"
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
@@ -59,6 +60,7 @@ const FavoritesList = ({ setDj }) => (
                 <List>
                     <h2 className="list-title">
                         Favorites
+                        <AddArtistField />
                     </h2>
                     <Divider />
                     <DjList
