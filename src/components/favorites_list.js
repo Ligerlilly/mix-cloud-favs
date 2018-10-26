@@ -39,6 +39,7 @@ const List = styled("ul")`
         grid-column-start: 2;
         grid-row-start: 1;
         align-self: center;
+        cursor: pointer;
     }
 
     .artist-field {
