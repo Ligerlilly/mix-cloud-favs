@@ -1,19 +1,20 @@
-import * as React from "react";
-import styled from "react-emotion";
-import Divider from "./divider";
+import * as React from "react"
+import styled from "react-emotion"
+import Divider from '@material-ui/core/Divider';
 import AddArtistField from "./add_artist"
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import AddCircle from "@material-ui/icons/AddCircle"
+import gql from "graphql-tag"
+import { Query } from "react-apollo"
 
-const GET_DJS = gql`
-  query {
-    dJs {
-        id
-        username
-        display_name
+export const GET_DJS = gql`
+    query {
+        dJs {
+            id
+            username
+            display_name
+        }
     }
-  }
-`;
+`
 
 const List = styled("ul")`
   width: 100%;
@@ -25,8 +26,25 @@ const List = styled("ul")`
     color: #1A3937;
     margin-bottom: 0;
     min-height: 35px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    h3 {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        margin: 0;
+    }
+    .circle-icon {
+        grid-column-start: 2;
+        grid-row-start: 1;
+    }
+
+    .artist-field {
+        grid-row-start: 2;
+        grid-colum-start: 1;
+    }
   }
-`;
+`
 
 export const ListItem = styled("li")`
   color: #000000;
@@ -39,38 +57,56 @@ export const ListItem = styled("li")`
   margin-bottom: 15px;
   margin-top: 15px;
   cursor: pointer;
-`;
+`
 
 const DjList = ({ djs, setDj }) => {
     return djs.map(({ display_name, username }) => (
-        <ListItem
-            onClick={setDj.bind(setDj, username)}
-        >
+        <ListItem onClick={setDj.bind(setDj, username)}>
             {display_name}
         </ListItem>
-    ));
-};
+    ))
+}
 
-const FavoritesList = ({ setDj }) => (
-    <Query query={GET_DJS}>
-        {({ loading, error, data: { dJs = [] } }) => {
-            if (loading) return "Loading...";
-            if (error) return `Error! ${error.message}`;
-            return (
-                <List>
-                    <h2 className="list-title">
-                        Favorites
-                        <AddArtistField />
-                    </h2>
-                    <Divider />
-                    <DjList
-                        djs={dJs}
-                        setDj={setDj}
-                    />
-                </List>
-            )
-        }}
-    </Query>
-);
+class FavoritesList extends React.Component {
+    constructor(props) {
+        super(props)
 
-export default FavoritesList;
+        this.state = {
+            isMakeArtist: false,
+        }
+
+        this.toggleShowMakeArtist = this.toggleShowMakeArtist.bind(this)
+    }
+
+    toggleShowMakeArtist() {
+        this.setState((prevState) => ({
+            isMakeArtist: !prevState.isMakeArtist,
+        }))
+    }
+
+    render() {
+        const { setDj } = this.props
+        const { isMakeArtist } = this.state
+        return (
+            <Query query={GET_DJS}>
+                {({ loading, error, data: { dJs = [] } }) => {
+                    if (loading) return "Loading..."
+                    if (error) return `Error! ${error.message}`
+                    return (
+                        <List>
+                            <div className="list-title">
+                                <h3>Djs</h3>
+                                <AddCircle onClick={this.toggleShowMakeArtist} className="circle-icon"/>
+                                { isMakeArtist && <AddArtistField className="artist-field"/> }
+                            </div>
+                            <Divider />
+                            <DjList djs={dJs} setDj={setDj} />
+                        </List>
+                    )
+                }}
+            </Query>
+        )
+    }
+}
+
+export default FavoritesList
