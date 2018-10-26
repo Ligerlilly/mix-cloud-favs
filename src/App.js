@@ -18,9 +18,11 @@ class App extends React.Component {
         super(props)
         this.state = {
             selectedDj: "",
+            isDrawerOpen: true,
         }
 
         this.setDj = this.setDj.bind(this)
+        this.toggleDrawer = this.toggleDrawer.bind(this)
     }
 
     setDj(selectedDj) {
@@ -29,16 +31,28 @@ class App extends React.Component {
         })
     }
 
+    toggleDrawer() {
+        this.setState((prevState) => ({
+            isDrawerOpen: !prevState.isDrawerOpen,
+        }))
+    }
+
     render() {
         return (
             <ApolloProvider client={client}>
-                <NavBar />
-                    <Container>
-                        <SideDrawer>
-                            <Aside setDj={this.setDj} />
-                        </SideDrawer>
-                        <Contents selectedDj={this.state.selectedDj} />
-                    </Container>
+                <NavBar
+                    toggleDrawer={this.toggleDrawer}
+                    isDrawerOpen={this.state.isDrawerOpen}
+                />
+                <Container>
+                    <SideDrawer isOpen={this.state.isDrawerOpen}>
+                        <Aside setDj={this.setDj} />
+                    </SideDrawer>
+                    <Contents
+                        selectedDj={this.state.selectedDj}
+                        isOpen={this.state.isDrawerOpen}
+                    />
+                </Container>
             </ApolloProvider>
         )
     }

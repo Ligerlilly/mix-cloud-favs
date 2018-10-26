@@ -8,33 +8,58 @@ const styles = (theme) => ({
         display: "flex",
     },
     appBar: {
+        transition: theme.transitions.create([ "margin", "width" ], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
-        marginRight: drawerWidth,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create([ "margin", "width" ], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    menuButton: {
+        marginLeft: 12,
+        marginRight: 20,
+    },
+    hide: {
+        display: "none",
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth,
+          width: drawerWidth,
     },
-    toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3,
+    drawerHeader: {
+        display: "flex",
+        alignItems: "center",
+        padding: "0 8px",
+        ...theme.mixins.toolbar,
+        justifyContent: "flex-end",
     },
 })
 
-const SideDrawer = (props) => {
-    return (
-        <Drawer
-            className={props.classes.drawer}
-            anchor="left"
-            variant="permanent"
-        >
-            {props.children}
-        </Drawer>
-    )
+class SideDrawer extends React.Component {
+    render() {
+        return (
+            <Drawer
+                className={this.props.classes.drawer}
+                anchor="left"
+                variant="persistent"
+                open={this.props.isOpen}
+                classes={{
+                    paper: this.props.classes.drawerPaper,
+                }}
+            >
+                {this.props.children}
+            </Drawer>
+        )
+    }
 }
 
 export default withStyles(styles)(SideDrawer)

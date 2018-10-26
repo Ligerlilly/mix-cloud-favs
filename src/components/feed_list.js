@@ -6,12 +6,9 @@ import { Query } from "react-apollo";
 
 const GET_FEED = gql`
     query Feed($username: String!){
-        cloudCasts {
+        cloudCasts(username: $username) {
             embedUrl
             title
-            creator(where: {username: $username}) {
-              username
-            }
         }
     }
 `;

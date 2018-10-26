@@ -1,7 +1,9 @@
-import * as React from "react";
-import styled from "react-emotion";
-import Divider from "./divider";
-import Feed from './feed_list'
+import * as React from "react"
+import styled from "react-emotion"
+import Divider from "./divider"
+import Feed from "./feed_list"
+import classNames from "classnames"
+import { withStyles } from "@material-ui/core/styles"
 
 const ContentsContainer = styled("section")`
   height: 100vh;
@@ -14,16 +16,41 @@ const ContentsContainer = styled("section")`
     margin-bottom: 0;
     min-height: 35px;
   }
-`;
+`
 
-const Contents = ({ selectedDj }) => {
-  return (
-    <ContentsContainer>
-      <h2>{selectedDj}</h2>
-      <Divider />
-      {selectedDj && <Feed username={selectedDj} />}
-    </ContentsContainer>
-  )
+const Contents = ({ selectedDj, isOpen, classes }) => {
+    return (
+        <ContentsContainer
+            className={classNames(classes.content, {
+                [classes.contentShift]: isOpen,
+            })}
+        >
+            <h2>{selectedDj}</h2>
+            <Divider />
+            {selectedDj && <Feed username={selectedDj} />}
+        </ContentsContainer>
+    )
 }
 
-export default Contents;
+const drawerWidth = 240
+
+const styles = (theme) => ({
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing.unit * 3,
+        transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        marginLeft: -drawerWidth,
+    },
+    contentShift: {
+        transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    },
+})
+
+export default withStyles(styles)(Contents)
