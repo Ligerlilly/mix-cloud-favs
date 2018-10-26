@@ -18,27 +18,45 @@ class App extends React.Component {
         super(props)
         this.state = {
             selectedDj: "",
+            selectedDisplayName: "",
+            isDrawerOpen: true,
         }
 
         this.setDj = this.setDj.bind(this)
+        this.toggleDrawer = this.toggleDrawer.bind(this)
     }
 
-    setDj(selectedDj) {
+    setDj(selectedDj, selectedDisplayName) {
         this.setState({
             selectedDj,
+            selectedDisplayName,
         })
     }
 
+    toggleDrawer() {
+        this.setState((prevState) => ({
+            isDrawerOpen: !prevState.isDrawerOpen,
+        }))
+    }
+
     render() {
+        const { selectedDj, selectedDisplayName, isDrawerOpen } = this.state
         return (
             <ApolloProvider client={client}>
-                <NavBar />
-                    <Container>
-                        <SideDrawer>
-                            <Aside setDj={this.setDj} />
-                        </SideDrawer>
-                        <Contents selectedDj={this.state.selectedDj} />
-                    </Container>
+                <NavBar
+                    toggleDrawer={this.toggleDrawer}
+                    isDrawerOpen={isDrawerOpen}
+                />
+                <Container>
+                    <SideDrawer isOpen={isDrawerOpen}>
+                        <Aside setDj={this.setDj} />
+                    </SideDrawer>
+                    <Contents
+                        selectedDj={selectedDj}
+                        selectedDisplayName={selectedDisplayName}
+                        isOpen={isDrawerOpen}
+                    />
+                </Container>
             </ApolloProvider>
         )
     }
